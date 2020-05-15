@@ -14,6 +14,7 @@ function SmurfsForm({addSmurfs}) {
   });
 
   
+  
 
   const formSubmit = e => {
     e.preventDefault();

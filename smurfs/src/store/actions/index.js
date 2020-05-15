@@ -70,21 +70,26 @@ export const deleteSmurfs = (id) => {
   };
 };
 
-export const updateSmurfs = (id, name, age, height) => {
+
+
+
+export const updateSmurfs = (data) => {
+  console.log("this is data inside update", data)
   // make an async request
   // redux-thunk allows us to return functions instead of objects
   return dispatch => {
     dispatch({ type: UPDATE_SMURFS_START });
     // then make the async call
     axios
-      .put(`http://localhost:3333/smurfs/${id}`, {
-        name: name,
-        age: age,
-        height: height
-      })
+      .put(`http://localhost:3333/smurfs/${data.id}`,data)// {
+        // name: data.name,
+        // age: data.age,
+        // height: data.height
+     // })
       .then(res => {
         console.log("THIS IS INSIDE UPDATE",res);
-        dispatch({ type: UPDATE_SMURFS_SUCCESS, payload: id });
+      
+        dispatch({ type: UPDATE_SMURFS_SUCCESS, payload: res.data});
       })
       .catch(err => {
           dispatch({type: UPDATE_SMURFS_FAILURE, payload: err});

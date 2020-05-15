@@ -10,7 +10,7 @@ import {
   DELETE_SMURFS_FAILURE,
   UPDATE_SMURFS_START,
   UPDATE_SMURFS_SUCCESS,
-  UPDATE_SMURFS_FAILURE
+  UPDATE_SMURFS_FAILURE,
 } from "../actions";
 
 export const initialState = {
@@ -49,7 +49,7 @@ export const smurfsReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        smurfs: action.payload
+        smurfs: action.payload,
       };
     case ADD_SMURFS_FAILURE:
       return {
@@ -66,8 +66,7 @@ export const smurfsReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload)
-        
+        smurfs: state.smurfs.filter((smurf) => smurf.id !== action.payload),
       };
     case DELETE_SMURFS_FAILURE:
       return {
@@ -75,24 +74,23 @@ export const smurfsReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
-      case UPDATE_SMURFS_START:
-        return {
-          ...state,
-          isFetching: true,
-        };
-      case UPDATE_SMURFS_SUCCESS:
-        return {
-          ...state,
-          isFetching: false,
-          smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload)
-          
-        };
-      case UPDATE_SMURFS_FAILURE:
-        return {
-          ...state,
-          isFetching: false,
-          error: action.payload,
-        };
+    case UPDATE_SMURFS_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case UPDATE_SMURFS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        smurfs: [...action.payload]
+      };
+    case UPDATE_SMURFS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

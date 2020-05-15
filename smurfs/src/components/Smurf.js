@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { connect } from "react-redux";
 
 import { fetchSmurfs } from "../store/actions";
 import { deleteSmurfs } from "../store/actions";
+import EditSmurfsForm from "./EditSmurfsForm";
 
 const Smurf = ({ smurfs, id, deleteSmurfs }) => {
+    const[isEditing, setIsToggle] = useState(false);
+
+    const toggle = () => {
+        setIsToggle(!isEditing);
+    }
   return (
     <div className="Container">
       <div>
@@ -13,6 +19,8 @@ const Smurf = ({ smurfs, id, deleteSmurfs }) => {
         <h2>{smurfs.height}</h2>
       </div>
       <button onClick={() => deleteSmurfs(id)}>X</button>
+      <button onClick={toggle}>Update Smurf With New Info</button>
+      {isEditing ? (<EditSmurfsForm id={id} toggleEditForm={toggle} age={smurfs.age} name={smurfs.name} height={smurfs.height}/>): null}
     </div>
   );
 };
